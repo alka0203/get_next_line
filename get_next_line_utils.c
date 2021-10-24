@@ -6,7 +6,7 @@
 /*   By: asanthos <asanthos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 21:41:25 by asanthos          #+#    #+#             */
-/*   Updated: 2021/10/24 15:00:01 by asanthos         ###   ########.fr       */
+/*   Updated: 2021/10/24 20:09:45 by asanthos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (0);
-	if (len > ft_strlen(s))
+	if (len > (size_t)ft_strlen(s))
 		len = ft_strlen(s);
 	dst = malloc(sizeof(char) * len + 1);
 	if (!dst)
 		return (0);
-	while (start < ft_strlen(s) && i < len && s[start + i])
+	while (start < (unsigned int)ft_strlen(s) && i < len && s[start + i])
 	{
 		dst[i] = s[start + i];
 		i++;
