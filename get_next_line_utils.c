@@ -6,7 +6,7 @@
 /*   By: asanthos <asanthos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 21:41:25 by asanthos          #+#    #+#             */
-/*   Updated: 2021/10/24 20:09:45 by asanthos         ###   ########.fr       */
+/*   Updated: 2021/10/26 03:06:19 by asanthos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	j = 0;
 	i = 0;
-	if (!s1)
+	if (!s1 && !s2)
 		return (0);
 	concat = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!concat)
@@ -58,24 +58,52 @@ char	*ft_strdup(char const *src)
 	return (dest);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_bzero(void *s, size_t n)
 {
-	size_t	i;
-	char	*dst;
+	unsigned char	*dest;
+	unsigned int	i;
 
 	i = 0;
-	if (!s)
-		return (0);
-	if (len > (size_t)ft_strlen(s))
-		len = ft_strlen(s);
-	dst = malloc(sizeof(char) * len + 1);
-	if (!dst)
-		return (0);
-	while (start < (unsigned int)ft_strlen(s) && i < len && s[start + i])
+	dest = (unsigned char *)s;
+	while (i < n)
 	{
-		dst[i] = s[start + i];
+		dest[i] = '\0';
 		i++;
 	}
-	dst[i] = '\0';
-	return (dst);
+}
+
+/*size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	j = 0;
+	while (src[i])
+		i++;
+	while (src[j] && j + 1 < dstsize)
+	{
+		dst[j] = src[j];
+		j++;
+	}
+	if (dstsize)
+		dst[j] = '\0';
+	return (i + 1);
+}*/
+
+char *gnl_strcpy(char *src)
+{
+	int	i;
+	char *dest;
+
+	i = 0;
+	dest = (char *)malloc(ft_strlen(src));
+	while (src[i] != '\n')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\n';
+	dest[i + 1] = '\0';
+	return (dest);
 }
