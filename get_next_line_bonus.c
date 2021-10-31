@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asanthos <asanthos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 21:40:47 by asanthos          #+#    #+#             */
-/*   Updated: 2021/11/01 01:16:23 by asanthos         ###   ########.fr       */
+/*   Created: 2021/10/31 17:27:12 by asanthos          #+#    #+#             */
+/*   Updated: 2021/11/01 01:18:23 by asanthos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdio.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchr(const char *str, int c)
 {
@@ -79,7 +79,7 @@ void	initialize(int *size, char **store)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[1024];
 	int			size;
 	char		*store;
 	char		buff[BUFFER_SIZE + 1];
@@ -87,21 +87,21 @@ char	*get_next_line(int fd)
 	initialize(&size, &store);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	store = fd_store(str, store);
+	store = fd_store(str[fd], store);
 	while ((ft_strchr(store, '\n') == 0) && (size != 0))
 	{
 		size = read(fd, buff, BUFFER_SIZE);
-		if (size == -1)
+		if (size < 0 && store != NULL)
 		{
 			free(store);
 			return (NULL);
 		}
-		str = ft_strdup(store);
+		str[fd] = ft_strdup(store);
 		free (store);
 		buff[size] = '\0';
-		store = ft_strjoin(str, buff);
-		free (str);
+		store = ft_strjoin(str[fd], buff);
+		free (str[fd]);
 	}
-	str = ft_strdup(ft_strchr(store, '\n'));
-	return (fd_nextline(str, store));
+	str[fd] = ft_strdup(ft_strchr(store, '\n'));
+	return (fd_nextline(str[fd], store));
 }
