@@ -6,7 +6,7 @@
 /*   By: asanthos <asanthos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 21:41:25 by asanthos          #+#    #+#             */
-/*   Updated: 2021/10/26 03:06:19 by asanthos         ###   ########.fr       */
+/*   Updated: 2021/10/31 14:29:34 by asanthos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	i = 0;
 	if (!s1 && !s2)
-		return (0);
-	concat = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+		return (0);	
+	concat = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
+	m--;
 	if (!concat)
 		return (0);
 	while (s1[i])
@@ -46,64 +47,76 @@ char	*ft_strdup(char const *src)
 	char	*dest;
 
 	i = 0;
-	dest = (char *)malloc(ft_strlen(src) + 1);
-	if (dest == NULL)
+	if (!src)
 		return (NULL);
+	dest = (char *)malloc(ft_strlen(src) + 1);
+	m--;
+	if (!dest)
+	 	return (NULL);
 	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;
 	}
-	dest[i++] = '\0';
+	dest[i] = '\0';
 	return (dest);
 }
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned char	*dest;
-	unsigned int	i;
+	size_t	i;
+	char	*dst;
 
 	i = 0;
-	dest = (unsigned char *)s;
-	while (i < n)
+	if (!s)
+		return (0);
+	if (len > (unsigned int)ft_strlen(s))
+		len = (unsigned int)ft_strlen(s);
+	dst = malloc((len + 1) * sizeof(char *));
+	m--;
+	if (!dst)
+		return (0);
+	while (start < (unsigned int)ft_strlen(s) && i < len + 1 && s[start + i])
 	{
-		dest[i] = '\0';
+		dst[i] = s[start + i];
 		i++;
 	}
+	dst[i] = '\0';
+	return (dst);
 }
 
-/*size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*ft_strtrim(char *s1, char const *set)
 {
-	unsigned int	i;
-	unsigned int	j;
+	int		boop;
+	int		len;
+	char	*sub;
 
-	i = 0;
-	j = 0;
-	while (src[i])
-		i++;
-	while (src[j] && j + 1 < dstsize)
+	sub = (char *)malloc((ft_strlen(s1) - ft_strlen(set)) + 1);
+	m--;
+	if (!set)
+	 	return (0);
+	len = ft_strlen(set);
+	boop = (ft_strlen(s1) - 1);
+	while (ft_strchr(set, s1[boop]) && len)
 	{
-		dst[j] = src[j];
-		j++;
+		len--;
+		boop--;
 	}
-	if (dstsize)
-		dst[j] = '\0';
-	return (i + 1);
-}*/
+	sub = ft_substr(s1, 0, boop);
+	free(s1);
+	m++;
+	return (sub);
+}
 
-char *gnl_strcpy(char *src)
+
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int	i;
-	char *dest;
+	void		*str;
 
-	i = 0;
-	dest = (char *)malloc(ft_strlen(src));
-	while (src[i] != '\n')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\n';
-	dest[i + 1] = '\0';
-	return (dest);
+	str = (void *)malloc(nmemb * size);
+	m--;
+	if (!str)
+		return (NULL);
+	ft_bzero(str, nmemb * size);
+	return (str);
 }
