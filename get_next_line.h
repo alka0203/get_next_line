@@ -6,7 +6,7 @@
 /*   By: asanthos <asanthos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 21:41:14 by asanthos          #+#    #+#             */
-/*   Updated: 2021/10/31 11:18:03 by asanthos         ###   ########.fr       */
+/*   Updated: 2021/10/31 15:21:23 by asanthos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stddef.h>
 
 static int  m = 0;
-// # define BUFFER_SIZE 1
+//# define BUFFER_SIZE 1
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);

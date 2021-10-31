@@ -6,7 +6,7 @@
 /*   By: asanthos <asanthos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 21:41:25 by asanthos          #+#    #+#             */
-/*   Updated: 2021/10/31 14:29:34 by asanthos         ###   ########.fr       */
+/*   Updated: 2021/10/31 15:21:54 by asanthos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	m--;
 	if (!dst)
 		return (0);
-	while (start < (unsigned int)ft_strlen(s) && i < len + 1 && s[start + i])
+	while (start < (unsigned int)ft_strlen(s) && i < len && s[start + i])
 	{
 		dst[i] = s[start + i];
 		i++;

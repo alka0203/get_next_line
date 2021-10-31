@@ -6,7 +6,7 @@
 /*   By: asanthos <asanthos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 21:40:47 by asanthos          #+#    #+#             */
-/*   Updated: 2021/10/31 14:29:02 by asanthos         ###   ########.fr       */
+/*   Updated: 2021/10/31 15:48:00 by asanthos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*get_next_line(int fd)
     char *nextline;
     
     size = 1;
+	// if (read(fd, buff, BUFFER_SIZE))
+	//  	return (NULL);
     if (!str)
 	{
         store = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
@@ -93,9 +95,16 @@ char	*get_next_line(int fd)
 		str = ft_strdup(store);
 		free (store);
 		m++;
-        size = read(fd, buff, BUFFER_SIZE);
-		if (size == -1)
+		// if (size == -1)
+		// {
+		// 	free (store);
+		// 	//free (str);
+		// 	return (NULL);
+		// }
+		if ((read(fd, buff, BUFFER_SIZE)) == -1)
 			return (NULL);
+		else
+			size = read(fd, buff, BUFFER_SIZE);
 		buff[size] = '\0';
         store = ft_strjoin(str, buff);
 		free (str);
@@ -119,10 +128,12 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		nextline = ft_strtrim(store, str);
+		nextline = ft_substr(store, 0, (ft_strlen(store) - ft_strlen(str)));
+		free (store);
+		//nextline = ft_strtrim(store, str);
 	}
 	if (ft_strlen(nextline) == 0)
-		return (0);
+		return (NULL);
 	//free (store);
 	m++;
     return (nextline);
@@ -130,36 +141,39 @@ char	*get_next_line(int fd)
 
 //#include "./get_next_line_utils.c"
 
-int main(void)
-{
-    int openfd;
-    char *s;
+// int main(void)
+// {
+//     int openfd;
+//     char *s;
 
-    //openfd = open("gnlTester/files/empty", O_RDONLY); 
-	openfd = open("gnlTester/files/alternate_line_nl_with_nl", O_RDONLY);
-    //openfd = open("file.txt", O_RDONLY);
-    s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-    s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-    s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-    s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-    s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-	s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-	s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-	s = get_next_line(openfd);
-    printf("%s", s);
-    free (s); m++;
-}
+//     openfd = open("gnlTester/files/41_with_nl", O_RDONLY); 
+// 	//openfd = open("gnlTester/files/alternate_line_nl_with_nl", O_RDONLY);
+//     //openfd = open("file.txt", O_RDONLY);
+//     s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+//     s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+//     s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+//     s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+//     s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+// 	s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+// 	s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+// 	s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+// 	s = get_next_line(openfd);
+//     printf("%s", s);
+//     free (s); m++;
+// }
